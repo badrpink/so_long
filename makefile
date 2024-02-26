@@ -7,13 +7,13 @@ CC = cc
 FLAGS = -Wall -Werror -Wextra
 
 all: ${NAME} ${LIBFT} so_long
-	${CC} ${FLAGS} so_long.c ${NAME} ${LIBFT}
+	${CC} ${FLAGS} so_long.c ${NAME} 
 ${NAME} : ${OBJ} ${LIBFT} 
-	ar -rc $@ ${OBJ}
+	ar -rc $@ ${OBJ} $>
 ${LIBFT}:
 	${MAKE} -C ./libft
 %.o: %.c ${LIB}
-	${CC} ${FLAGS} -c $@ -o $< ${LIBFT}
+	${CC} ${FLAGS} -o $@ -c $< ${LIBFT}
 clean:
 	rm -f ${OBJ}
 	${MAKE} -C ./libft clean
