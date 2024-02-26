@@ -6,9 +6,9 @@ OBJ = $(SRC:.c=.o)
 CC = cc
 FLAGS = -Wall -Werror -Wextra
 
-all: ${NAME} ${LIBFT} so_long 
-	${CC} ${FLAGS} so_long.c ${NAME} -o so_long
-${NAME} : ${OBJ} ${LIBFT}
+all: ${NAME} ${LIBFT} so_long
+	${CC} ${FLAGS} ${NAME} -o so_long
+${NAME} : ${OBJ} ${LIBFT} 
 	ar -rc $@ ${OBJ} ${LIBFT}
 ${LIBFT}:
 	${MAKE} -C ./libft
