@@ -4,6 +4,8 @@ int main(int ac, char **av)
 {
 	if(ac != 2)
 		return(0);
-	printf("%zu",ft_strlen(av[1]));
+		printf("%s",get_next_line(2));
+
+	//printf("%zu",ft_strlen(av[1]));
 
 }
