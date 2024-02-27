@@ -83,45 +83,76 @@ int move_it(info *all,int x, int y,int n)
 	}
 	return(1);
 }
-
+void turn(int key, cord *pos,int *x, int *y, int *n)
+{
+	if((key == 13 || key == 126 ))
+			y-=1;
+	if((key == 2 || key == 124 ))
+			x+=1;
+	if((key == 0 || key == 123 ))
+			x-=1;
+	if((key == 1 || key == 125))
+			y+=1;
+}
 int det_keys(int key,info *all)
 {
 	char c;
 	static int moves;
-	if((key == 13 || key == 126 )) // up
-		{
-			c = check_position(all->map,all->position->x,all->position->y-1);
-			if(c == '0' || c == 'C')
-				moves+= move_it(all,all->position->x,all->position->y-1,1);
-			else if(c == 'E' && !check_char(all->map,'C'))
-				exit(0);
-		}
-	if((key == 2 || key == 124 )) //right
-		{
-			c = check_position(all->map,all->position->x+1,all->position->y);
-			if(c == '0' || c == 'C')
-				moves += move_it(all,all->position->x+1,all->position->y,4);
-			else if(c == 'E' && !check_char(all->map,'C'))
-				exit(0);
-		}
-	if((key == 0 || key == 123 )) // left
-		{
-			c = check_position(all->map,all->position->x-1,all->position->y);
-			if(c == '0' || c == 'C')
-				moves += move_it(all,all->position->x-1,all->position->y,3);
-			else if(c == 'E' && !check_char(all->map,'C'))
-				exit(0);
-			moves++;
-		}
-	if((key == 1 || key == 125)) // down
-		{
-			c = check_position(all->map,all->position->x,all->position->y+1);
-			if(c == '0' || c == 'C')
-				moves += move_it(all,all->position->x,all->position->y+1,2);
-			else if(c == 'E' && !check_char(all->map,'C'))
-				exit(0);
-			moves++;
-		}
+	int x;
+	int y;
+	int n;
+
+	if(key >= 0)
+	{
+		if((key == 13 || key == 126 ))
+			y-=1;
+		if((key == 2 || key == 124 ))
+			x+=1;
+		if((key == 0 || key == 123 ))
+			x-=1;
+		if((key == 1 || key == 125))
+			y+=1;
+		c = check_position(all->map,all->position->x,all->position->y-1);
+		if(c == '0' || c == 'C')
+			moves+= move_it(all,x,y,1);
+		else if(c == 'E' && !check_char(all->map,'C'))
+			exit(0);
+	}
+
+	// if((key == 13 || key == 126 )) // up
+	// 	{
+	// 		c = check_position(all->map,all->position->x,all->position->y-1);
+	// 		if(c == '0' || c == 'C')
+	// 			moves+= move_it(all,all->position->x,all->position->y-1,1);
+	// 		else if(c == 'E' && !check_char(all->map,'C'))
+	// 			exit(0);
+	// 	}
+	// if((key == 2 || key == 124 )) //right
+	// 	{
+	// 		c = check_position(all->map,all->position->x+1,all->position->y);
+	// 		if(c == '0' || c == 'C')
+	// 			moves += move_it(all,all->position->x+1,all->position->y,4);
+	// 		else if(c == 'E' && !check_char(all->map,'C'))
+	// 			exit(0);
+	// 	}
+	// if((key == 0 || key == 123 )) // left
+	// 	{
+	// 		c = check_position(all->map,all->position->x-1,all->position->y);
+	// 		if(c == '0' || c == 'C')
+	// 			moves += move_it(all,all->position->x-1,all->position->y,3);
+	// 		else if(c == 'E' && !check_char(all->map,'C'))
+	// 			exit(0);
+	// 		moves++;
+	// 	}
+	// if((key == 1 || key == 125)) // down
+	// 	{
+	// 		c = check_position(all->map,all->position->x,all->position->y+1);
+	// 		if(c == '0' || c == 'C')
+	// 			moves += move_it(all,all->position->x,all->position->y+1,2);
+	// 		else if(c == 'E' && !check_char(all->map,'C'))
+	// 			exit(0);
+	// 		moves++;
+	// 	}
 	if(key == 53)
 		exit(0);
 	printf("moves : %d\n",moves);
