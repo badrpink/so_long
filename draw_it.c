@@ -64,13 +64,14 @@ void put_pixels(node *map,void *mlx,void *mlx_win,int n)
 	}
 }
 
-void move_it(info *all,int x, int y,int n)
+int move_it(info *all,int x, int y,int n)
 {
 	static int pos;
 	if(pos != n)
 	{
 		put_pixels(all->map,all->mlx,all->mlx_win,n);
 		pos = n;
+		return(0);
 	}
 	else
 	{
@@ -80,17 +81,18 @@ void move_it(info *all,int x, int y,int n)
 	all->position->x=x;
 	put_pixels(all->map,all->mlx,all->mlx_win,n);
 	}
+	return(1);
 }
 
 int det_keys(int key,info *all)
 {
-	printf("%d\n",key);
 	char c;
+	static int moves;
 	if((key == 13 || key == 126 )) // up
 		{
 			c = check_position(all->map,all->position->x,all->position->y-1);
 			if(c == '0' || c == 'C')
-				move_it(all,all->position->x,all->position->y-1,1);
+				moves+= move_it(all,all->position->x,all->position->y-1,1);
 			else if(c == 'E' && !check_char(all->map,'C'))
 				exit(0);
 		}
@@ -98,7 +100,7 @@ int det_keys(int key,info *all)
 		{
 			c = check_position(all->map,all->position->x+1,all->position->y);
 			if(c == '0' || c == 'C')
-				move_it(all,all->position->x+1,all->position->y,4);
+				moves += move_it(all,all->position->x+1,all->position->y,4);
 			else if(c == 'E' && !check_char(all->map,'C'))
 				exit(0);
 		}
@@ -106,20 +108,23 @@ int det_keys(int key,info *all)
 		{
 			c = check_position(all->map,all->position->x-1,all->position->y);
 			if(c == '0' || c == 'C')
-				move_it(all,all->position->x-1,all->position->y,3);
+				moves += move_it(all,all->position->x-1,all->position->y,3);
 			else if(c == 'E' && !check_char(all->map,'C'))
 				exit(0);
+			moves++;
 		}
 	if((key == 1 || key == 125)) // down
 		{
 			c = check_position(all->map,all->position->x,all->position->y+1);
 			if(c == '0' || c == 'C')
-				move_it(all,all->position->x,all->position->y+1,2);
+				moves += move_it(all,all->position->x,all->position->y+1,2);
 			else if(c == 'E' && !check_char(all->map,'C'))
 				exit(0);
+			moves++;
 		}
 	if(key == 53)
 		exit(0);
+	printf("moves : %d\n",moves);
 	return(0);
 }
 
