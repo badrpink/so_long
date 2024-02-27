@@ -1,7 +1,10 @@
 NAME = so_long.a
 LIB = so_long.h ./libft/libft.h get_next_line.h
 LIBFT = ./libft/libft.a
-SRC = get_next_line.c get_next_line_utils.c so_long.c
+SRC = get_next_line.c \
+get_next_line_utils.c\
+so_long.c\
+check_map.c
 OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
