@@ -26,6 +26,15 @@ typedef struct info{
 	cord position;
 	node *garbage;
 }info;
+
+typedef struct player{
+	void *up;
+	void *down;
+	void *right;
+	void *left;
+}player;
+
+
 int check_map(node *map);
 int check_wall(char *line, int n);
 int count_ch(char c, char *str);

@@ -1,10 +1,17 @@
 #include "so_long.h"
+char *str_dup(char *str)
+{
+	char *ret = malloc(ft_strlen(str));
+	if(!ret)
+		return(NULL);
+	return(strcpy(ret,str));
+}
 node *dub_node(node *src)
 {
 	node *new = NULL;
 	while(src)
 	{
-		add_to_node(&new,src ->content);
+		add_to_node(&new,str_dup(src ->content));
 		src= src->next;
 	}
 	return(new);
