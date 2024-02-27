@@ -36,6 +36,13 @@ void print_node(node *map)
 		map = map->next;
 	}
 }
+void get_position(node *map,cord *cords,char c)
+{
+	int y = 0;
+	char *str;
+	int x = 0;
+	while(map->next && )
+}
 node *get_map(char *file)
 {
 	int fd = open(file,O_RDONLY);

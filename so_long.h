@@ -11,16 +11,16 @@ typedef struct node{
 	struct node *next;
 } node;
 
-typedef struct player{
+typedef struct cord{
 	int x;
 	int y;
-} player;
+} cord;
 
 typedef struct info{
 	node *map;
 	int height;
 	int width;
-	player position;
+	cord position;
 	node *garbage;
 }info;
 int check_map(node *map);
