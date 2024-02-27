@@ -9,14 +9,14 @@ check_path.c\
 draw_it.c
 OBJ = $(SRC:.c=.o)
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
-MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit;
+CFLAGS = -Wall -Werror -Wextra 
+#MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 all: ${NAME} ${LIBFT} so_long.c
 	./so_long map.ber
 ${NAME} : ${OBJ} ${LIBFT}
 	ar -rc $@ ${OBJ} $>
-	${CC} ${MLXFLAGS} so_long.c ${NAME} ${LIBFT} -o so_long
+	${CC} ${CFLAGS} -Lmlx -lmlx -framework OpenGL -framework AppKit so_long.c ${NAME} ${LIBFT} -o so_long
 ${LIBFT}:
 	${MAKE} -C ./libft
 %.o: %.c ${LIB}
