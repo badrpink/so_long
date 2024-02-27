@@ -25,12 +25,14 @@ void put_pixels(node *map,void *mlx,void *mlx_win,int n)
 	int pixel = 64;
 	void *wall = mlx_xpm_file_to_image(mlx, "./textures/wall.xpm", &pixel, &pixel);
 	void *background = mlx_xpm_file_to_image(mlx, "./textures/background.xpm", &pixel, &pixel);
-	void *exit = mlx_xpm_file_to_image(mlx, "./textures/exit.xpm", &pixel, &pixel);
+	void *exit = mlx_xpm_file_to_image(mlx, "./textures/exit-close.xpm", &pixel, &pixel);
 	void *collect = mlx_xpm_file_to_image(mlx, "./textures/collect.xpm", &pixel, &pixel);
 	void *dir;
 	int i = 0;
 	int x = 0;
 	int y = 0;
+	if(!check_char(map,'C'))
+		exit = mlx_xpm_file_to_image(mlx, "./textures/exit-open.xpm", &pixel, &pixel);
 	if(n == 1)
 		dir = mlx_xpm_file_to_image(mlx, "./textures/up.xpm", &pixel, &pixel);
 	if(n == 2)
