@@ -23,6 +23,6 @@ typedef struct info{
 	player position;
 	node *garbage;
 }info;
-int check_map(char **lines);
+int check_map(node *map);
 
 #endif

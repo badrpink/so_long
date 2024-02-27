@@ -12,13 +12,13 @@ int check_file_name(char *str)
 }
 void add_to_node(node *old, char *str)
 {
-	node *new;
+	node *new = malloc(sizeof(node));
 	if(!old)
 		old = new;
 	else
 		old->next = new;
-	old->content = str;
-	old ->next = NULL;
+	new->content = str;
+	new ->next = NULL;
 }
 node *get_map(char *file)
 {
