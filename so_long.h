@@ -24,5 +24,6 @@ typedef struct info{
 	node *garbage;
 }info;
 int check_map(node *map);
+int check_wall(char *line, int n);
 
 #endif

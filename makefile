@@ -9,6 +9,7 @@ OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
+
 all: ${NAME} ${LIBFT} so_long.c
 	./so_long map.ber
 ${NAME} : ${OBJ} ${LIBFT}

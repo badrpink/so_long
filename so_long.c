@@ -10,15 +10,31 @@ int check_file_name(char *str)
 		return(1);
 	return(0);
 }
-void add_to_node(node *old, char *str)
+void add_to_node(node **nod, char *content)
 {
 	node *new = malloc(sizeof(node));
-	if(!old)
-		old = new;
-	else
-		old->next = new;
-	new->content = str;
+	node *temp;
+	if(!new)
+		return;
+	new ->content = content;
 	new ->next = NULL;
+	if(!*nod)	
+		*nod = new;
+	else
+	{
+		temp = *nod;
+		while(temp->next)
+			temp=temp->next;
+		temp->next = new;
+	}
+}
+void print_node(node *map)
+{
+	while(map)
+	{
+		printf("%s",map->content);
+		map = map->next;
+	}
 }
 node *get_map(char *file)
 {
@@ -26,7 +42,7 @@ node *get_map(char *file)
 	node *map = NULL;
 	char *temp;
 	while((temp = get_next_line(fd)))
-		add_to_node(map, temp);
+		add_to_node(&map, temp);
 	return(map);
 }
 
@@ -43,5 +59,4 @@ int main(int ac, char **av)
 	if(!check_map(all.map))
 		return(printf("invalid_map\n"),0);
 
-	
 }
