@@ -10,6 +10,16 @@ void get_height_width(info *all, node *map)
 	}
 	all->height = height;
 }
+int check_char(node *map,char c)
+{
+	while(map)
+	{
+		if(count_ch(c,map->content))
+			return(1);
+		map = map ->next;
+	}
+	return(0);
+}
 void put_pixels(node *map,void *mlx,void *mlx_win,int n)
 {
 	int pixel = 64;
@@ -54,7 +64,23 @@ void put_pixels(node *map,void *mlx,void *mlx_win,int n)
 }
 int move_it(int key,info all)
 {
-	
+	printf("%d\n",key);
+	char c;
+	if((key == 13 || key == 126 )) // up
+		{
+			c = check_position(all.map,all.position.x,all.position.y);
+			if(c == '0' || c == 'C')
+			{
+				put_char_map(all.map, all.position.x,all.position.y,'0');
+				put_char_map(all.map,all.position.x,all.position.y-1,'P');
+				all.position.y-=1;
+				print_node(all.map);
+				put_pixels(all.map,all.mlx,all.mlx_win,1);
+			}
+			else if(c == 'E' && !check_char(all.map,'C'))
+				exit(0);
+		}
+	return(0);
 }
 void draw_it(info all)
 {
