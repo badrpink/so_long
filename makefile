@@ -4,17 +4,19 @@ LIBFT = ./libft/libft.a
 SRC = get_next_line.c \
 get_next_line_utils.c\
 so_long.c\
-check_map.c
+check_map.c\
+check_path.c\
+draw_it.c
 OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-
+MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit;
 
 all: ${NAME} ${LIBFT} so_long.c
 	./so_long map.ber
 ${NAME} : ${OBJ} ${LIBFT}
 	ar -rc $@ ${OBJ} $>
-	${CC} ${FL``AGS} so_long.c ${NAME} ${LIBFT} -o so_long
+	${CC} ${MLXFLAGS} so_long.c ${NAME} ${LIBFT} -o so_long
 ${LIBFT}:
 	${MAKE} -C ./libft
 %.o: %.c ${LIB}

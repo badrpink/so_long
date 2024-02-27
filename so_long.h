@@ -3,6 +3,7 @@
 #define SO_LONG_H
 
 #include <libc.h>
+#include <mlx.h>
 #include "./libft/libft.h"
 #include "get_next_line.h"
 
@@ -20,10 +21,25 @@ typedef struct info{
 	node *map;
 	int height;
 	int width;
+	void *mlx;
+	void *mlx_win;
 	cord position;
 	node *garbage;
 }info;
 int check_map(node *map);
 int check_wall(char *line, int n);
-
+int count_ch(char c, char *str);
+int check_accur(char *chars,char *line);
+int check_chars(node *map);
+int check_file_name(char *str);
+void add_to_node(node **nod, char *content);
+void print_node(node *map); //remove it when pushing ||
+char check_position(node *map,int x,int y);
+void get_position(node *map,cord *player,char c);
+node *get_map(char *file);
+node *dub_node(node *src);
+void put_char_map(node *map, int x,int y,char c);
+int check_path(node *map,cord position);
+void flood_fill(node *map,int x,int y);
+void draw_it(info all);
 #endif
