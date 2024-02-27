@@ -18,7 +18,7 @@ node *dub_node(node *src)
 }
 void put_char_map(node *map, int x,int y,char c)
 {
-		int count_y = 0;
+	int count_y = 0;
 	while(map && ++count_y < y)
 		map = map ->next;
 	((char *)map->content)[x] = c;
@@ -33,10 +33,10 @@ void flood_fill(node *map,int x,int y)
 	flood_fill(map,x,y+1);
 	flood_fill(map,x,y-1);
 }
-int check_path(node *map,cord position)
+int check_path(node *map,cord *position)
 {
 	node *cpy_map = dub_node(map);
-	flood_fill(cpy_map,position.x,position.y);
+	flood_fill(cpy_map,position->x,position->y);
 	int P = 0;
 	int C = 0;
 	int E = 0;

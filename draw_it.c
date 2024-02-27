@@ -61,34 +61,40 @@ void put_pixels(node *map,void *mlx,void *mlx_win,int n)
 		map = map ->next;
 	}
 }
-int move_it(int key,info *alls)
+// void move_it(int key,info *all,int x, int y)
+// {
+// 	char c = check_position(all->map,all->position->x,all->position->y);
+// }
+int det_keys(int key,info *all)
 {
 	printf("%d\n",key);
 	char c;
 	if((key == 13 || key == 126 )) // up
 		{
-
-			printf("%d %d\n",alls->position.x,alls->position.y);
-			c = check_position(alls->map,alls->position.x,alls->position.y);
+			printf("%d %d\n",all->position->x,all->position->y);
+			c = check_position(all->map,all->position->x,all->position->y-1);
 			if(c == '0' || c == 'C')
 			{
-				put_char_map(alls->map, alls->position.x,alls->position.y,'0');
-				put_char_map(alls->map,alls->position.x,alls->position.y-1,'P');
-				alls->position.y-=1;
-				print_node(alls->map);
-				put_pixels(alls->map,alls->mlx,alls->mlx_win,1);
+				printf("hekii\n");
+				put_char_map(all->map, all->position->x,all->position->y,'0');
+				put_char_map(all->map,all->position->x,all->position->y-1,'P');
+				all->position->y-=1;
+				printf("%d %d\n",all->position->x,all->position->y);
+				print_node(all->map);
+				put_pixels(all->map,all->mlx,all->mlx_win,1);
 			}
-			else if(c == 'E' && !check_char(alls->map,'C'))
+			else if(c == 'E' && !check_char(all->map,'C'))
 				exit(0);
 		}
 	return(0);
 }
 void draw_it(info all)
 {
+
 	all.mlx = mlx_init();
 	get_height_width(&all,all.map);
 	all.mlx_win=mlx_new_window(all.mlx,all.width*64-64,all.height*64,"SO_LONG");
-	put_pixels(all.map,all.mlx,all.mlx_win,1);
-	mlx_hook(all.mlx_win, 2, 0,move_it, &all);
+	put_pixels(all.map,all.mlx,all.mlx_win,2);
+	mlx_hook(all.mlx_win, 2, 0,det_keys, &all);
 	mlx_loop(all.mlx);
 }

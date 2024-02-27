@@ -43,11 +43,13 @@ char check_position(node *map,int x,int y)
 		map = map ->next;
 	return(((char *)map->content)[x]);
 }
-void get_position(node *map,cord *player,char c)
+cord *get_position(node *map,char c)
 {
 	int count_y = 0;
 	char *str;
 	int count_x;
+	cord *player;
+	player = malloc(sizeof(cord));
 	while(map)
 	{
 		str = (char *)map->content;
@@ -61,6 +63,7 @@ void get_position(node *map,cord *player,char c)
 				}
 		map = map -> next;
 	}
+	return(player);
 }
 node *get_map(char *file)
 {
@@ -84,7 +87,9 @@ int main(int ac, char **av)
 	all.map = get_map(av[1]);
 	if(!check_map(all.map))
 		return(printf("invalid_map\n"),0);
-	get_position(all.map,&all.position,'P');
+	all.position = get_position(all.map,'P');
+	printf("%d %d\n",all.position->x,all.position->y);
+	printf("hello\n");
 	if(!check_path(all.map,all.position))
 		return(printf("invalid_path\n"),0);
 	draw_it(all);
