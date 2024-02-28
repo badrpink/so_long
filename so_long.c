@@ -4,7 +4,7 @@
 int check_file_name(char *str)
 {
 	int size = ft_strlen(str);
-	if(size < 5 || str[0] == '.')
+	if(size < 5)
 		return(0);
 	if(str[size-4] == '.' && str[size-3] == 'b' && str[size-2] == 'e' && str[size-1] == 'r')
 		return(1);

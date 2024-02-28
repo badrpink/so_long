@@ -83,16 +83,31 @@ int move_it(info *all,int x, int y,int n)
 	}
 	return(1);
 }
-void turn(int key, cord *pos,int *x, int *y, int *n)
+void turn_it(int key, cord *pos,int *x, int *y, int *n)
 {
+	*x = pos->x;
+	*y = pos->y;
 	if((key == 13 || key == 126 ))
-			y-=1;
+	{
+		*y-=1;
+		*n = 1;
+
+	}
 	if((key == 2 || key == 124 ))
-			x+=1;
+	{
+		*x+=1;
+		*n = 4;
+	}
 	if((key == 0 || key == 123 ))
-			x-=1;
+	{
+		*x-=1;
+		*n = 3;
+	}
 	if((key == 1 || key == 125))
-			y+=1;
+	{
+		*y+=1;
+		*n =2;
+	}
 }
 int det_keys(int key,info *all)
 {
@@ -104,18 +119,12 @@ int det_keys(int key,info *all)
 
 	if(key >= 0)
 	{
-		if((key == 13 || key == 126 ))
-			y-=1;
-		if((key == 2 || key == 124 ))
-			x+=1;
-		if((key == 0 || key == 123 ))
-			x-=1;
-		if((key == 1 || key == 125))
-			y+=1;
-		c = check_position(all->map,all->position->x,all->position->y-1);
+		turn_it(key,all->position,&x,&y,&n);
+		c = check_position(all->map,x,y);
 		if(c == '0' || c == 'C')
-			moves+= move_it(all,x,y,1);
-		else if(c == 'E' && !check_char(all->map,'C'))
+			if(move_it(all,x,y,n))
+				printf("moves : %d\n",++moves);
+		if(c == 'E' && !check_char(all->map,'C'))
 			exit(0);
 	}
 
@@ -155,7 +164,6 @@ int det_keys(int key,info *all)
 	// 	}
 	if(key == 53)
 		exit(0);
-	printf("moves : %d\n",moves);
 	return(0);
 }
 
