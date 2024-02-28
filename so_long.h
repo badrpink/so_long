@@ -51,4 +51,5 @@ void put_char_map(node *map, int x,int y,char c);
 int check_path(node *map,cord *position);
 void flood_fill(node *map,int x,int y);
 void draw_it(info all);
+void clear_it(node *garbage);
 #endif

@@ -2,8 +2,8 @@
 void get_height_width(info *all, node *map)
 {
 	int height = 0;
-	all->width = ft_strlen(map->content);
 	while(map)
+	all->width = ft_strlen(map->content);
 	{
 		height++;
 		map = map->next;
@@ -127,41 +127,6 @@ int det_keys(int key,info *all)
 		if(c == 'E' && !check_char(all->map,'C'))
 			exit(0);
 	}
-
-	// if((key == 13 || key == 126 )) // up
-	// 	{
-	// 		c = check_position(all->map,all->position->x,all->position->y-1);
-	// 		if(c == '0' || c == 'C')
-	// 			moves+= move_it(all,all->position->x,all->position->y-1,1);
-	// 		else if(c == 'E' && !check_char(all->map,'C'))
-	// 			exit(0);
-	// 	}
-	// if((key == 2 || key == 124 )) //right
-	// 	{
-	// 		c = check_position(all->map,all->position->x+1,all->position->y);
-	// 		if(c == '0' || c == 'C')
-	// 			moves += move_it(all,all->position->x+1,all->position->y,4);
-	// 		else if(c == 'E' && !check_char(all->map,'C'))
-	// 			exit(0);
-	// 	}
-	// if((key == 0 || key == 123 )) // left
-	// 	{
-	// 		c = check_position(all->map,all->position->x-1,all->position->y);
-	// 		if(c == '0' || c == 'C')
-	// 			moves += move_it(all,all->position->x-1,all->position->y,3);
-	// 		else if(c == 'E' && !check_char(all->map,'C'))
-	// 			exit(0);
-	// 		moves++;
-	// 	}
-	// if((key == 1 || key == 125)) // down
-	// 	{
-	// 		c = check_position(all->map,all->position->x,all->position->y+1);
-	// 		if(c == '0' || c == 'C')
-	// 			moves += move_it(all,all->position->x,all->position->y+1,2);
-	// 		else if(c == 'E' && !check_char(all->map,'C'))
-	// 			exit(0);
-	// 		moves++;
-	// 	}
 	if(key == 53)
 		exit(0);
 	return(0);

@@ -36,6 +36,7 @@ void flood_fill(node *map,int x,int y)
 int check_path(node *map,cord *position)
 {
 	node *cpy_map = dub_node(map);
+	node *clear = cpy_map;
 	flood_fill(cpy_map,position->x,position->y);
 	int P = 0;
 	int C = 0;
@@ -48,6 +49,6 @@ int check_path(node *map,cord *position)
 		cpy_map = cpy_map->next;
 	}
 	if(C == 0 && P == 0 && E == 0)
-		return(1);
-	return(0);
+		return(clear_it(clear),1);
+	return(clear_it(clear),0);
 }

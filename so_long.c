@@ -65,6 +65,17 @@ cord *get_position(node *map,char c)
 	}
 	return(player);
 }
+void clear_it(node *garbage)
+{
+	node *clear;
+	while(garbage)
+	{
+		clear = garbage;
+		garbage = garbage ->next;
+		free(clear);
+	}
+	free(garbage);
+}
 node *get_map(char *file)
 {
 	int fd = open(file,O_RDONLY);
@@ -74,23 +85,27 @@ node *get_map(char *file)
 		add_to_node(&map, temp);
 	return(map);
 }
+void foo(void)
+{
+    system("leaks so_long");
+}
 
 int main(int ac, char **av)
 {
 	info all;
+    atexit(foo);
 	if(ac != 2)
 		return(printf("invalid argements\n"),0);
 	if( -1 == open(av[1],O_RDONLY))
-		return(printf("cant find or open file\n"),0);
+		return(printf("cant open file\n"),0);
 	if(!check_file_name(av[1]))
 		return(printf("invalid file extension\n"));
 	all.map = get_map(av[1]);
 	if(!check_map(all.map))
-		return(printf("invalid_map\n"),0);
+		return(clear_it(all.map),printf("invalid_map\n"),0);
 	all.position = get_position(all.map,'P');
-	printf("%d %d\n",all.position->x,all.position->y);
-	printf("hello\n");
 	if(!check_path(all.map,all.position))
-		return(printf("invalid_path\n"),0);
+		return(clear_it(all.map),printf("invalid_path\n"),0);
 	draw_it(all);
+	clear_it(all.map);
 }
