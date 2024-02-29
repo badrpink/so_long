@@ -31,13 +31,24 @@ void destroy_img(void *mlx,node *del)
 		free(clear);
 	}
 }
+void *generate_wall(void *mlx,int pixel,int x, int y)
+{
+	if(x > y)
+		return(mlx_xpm_file_to_image(mlx, "./textures/wall-1.xpm", &pixel, &pixel));
+	if(x == y)
+		return(mlx_xpm_file_to_image(mlx, "./textures/wall-2.xpm", &pixel, &pixel));
+	if(x <  y)
+		return(mlx_xpm_file_to_image(mlx, "./textures/wall-3.xpm", &pixel, &pixel));
+	//return(mlx_xpm_file_to_image(mlx, "./textures/wall-4.xpm", &pixel, &pixel));
+	return(NULL);
+}
 int asg_ima(node *del,node *map,void *mlx,icons *img,int n)
 {
 	int pixel;
 
 	pixel = 64;
 	img -> wall = mlx_xpm_file_to_image(mlx, "./textures/wall.xpm", &pixel, &pixel);
-	img -> background = mlx_xpm_file_to_image(mlx, "./textures/background.xpm", &pixel, &pixel);
+	img -> background = mlx_xpm_file_to_image(mlx, "./textures/background-1.xpm", &pixel, &pixel);
 	img -> collect = mlx_xpm_file_to_image(mlx, "./textures/collect.xpm", &pixel, &pixel);
 	if(!check_char(map,'C'))
 		img -> exit = mlx_xpm_file_to_image(mlx, "./textures/exit-open.xpm", &pixel, &pixel);
@@ -74,7 +85,7 @@ void put_imgs(icons *img,node *map,void *mlx,void *mlx_win, int pixel)
 		{
 			mlx_put_image_to_window(mlx,mlx_win,img->background, x, y);
 			if((((char *)map ->content)[i]) == '1')
-				mlx_put_image_to_window(mlx,mlx_win,img->wall, x, y);
+				mlx_put_image_to_window(mlx,mlx_win,generate_wall(mlx,pixel,x,y), x, y);
 			if((((char *)map ->content)[i]) == 'P')
 				mlx_put_image_to_window(mlx,mlx_win,img->dir, x, y);
 			if((((char *)map ->content)[i]) == 'E')
