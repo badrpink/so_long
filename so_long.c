@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/29 06:49:38 by mel-ward          #+#    #+#             */
+/*   Updated: 2024/02/29 06:50:54 by mel-ward         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "so_long.h"
 
-int check_file_name(char *str)
+int	check_file_name(char *str)
 {
-	int size; 
+	int	size; 
 
 	size = count_len(str);
 	if(size < 5)
