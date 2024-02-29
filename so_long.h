@@ -40,7 +40,6 @@ int check_accur(char *chars,char *line);
 int check_chars(node *map);
 int check_file_name(char *str);
 void add_to_node(node **nod, char *content);
-void print_node(node *map); //remove it when pushing ||
 char check_position(node *map,int x,int y);
 cord *get_position(node *map,char c);
 node *get_map(char *file);

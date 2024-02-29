@@ -19,10 +19,8 @@ ${NAME} : ${OBJ}
 	${CC} ${CFLAGS} -Lmlx -lmlx -framework OpenGL -framework -c -o $@ $<
 clean:
 	rm -f ${OBJ}
-	${MAKE} -C ./libft clean
 fclean: clean
 	rm -f ${NAME} so_long
-	${MAKE} -C ./libft fclean
 push:
 	git add *
 	git commit -m "update"
