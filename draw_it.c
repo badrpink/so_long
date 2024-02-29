@@ -20,17 +20,34 @@ int check_char(node *map,char c)
 	}
 	return(0);
 }
+void destroy_img(void *mlx,node *del)
+{
+	node *clear;
+	while(del)
+	{
+		mlx_destroy_image(mlx,del->content);
+		clear = del;
+		del = del->next;
+		free(clear);
+	}
+}
 void put_pixels(node *map,void *mlx,void *mlx_win,int n)
 {
 	int pixel = 64;
-	void *wall = mlx_xpm_file_to_image(mlx, "./textures/wall.xpm", &pixel, &pixel);
-	void *background = mlx_xpm_file_to_image(mlx, "./textures/background.xpm", &pixel, &pixel);
-	void *exit = mlx_xpm_file_to_image(mlx, "./textures/exit-close.xpm", &pixel, &pixel);
-	void *collect = mlx_xpm_file_to_image(mlx, "./textures/collect.xpm", &pixel, &pixel);
+	static node *del;
+	void *wall;
+	void *background;
+	void *exit;
+	void *collect;
 	void *dir;
 	int i = 0;
 	int x = 0;
 	int y = 0;
+
+	wall = mlx_xpm_file_to_image(mlx, "./textures/wall.xpm", &pixel, &pixel);
+	background = mlx_xpm_file_to_image(mlx, "./textures/background.xpm", &pixel, &pixel);
+	exit = mlx_xpm_file_to_image(mlx, "./textures/exit-close.xpm", &pixel, &pixel);
+	collect = mlx_xpm_file_to_image(mlx, "./textures/collect.xpm", &pixel, &pixel);
 	if(!check_char(map,'C'))
 		exit = mlx_xpm_file_to_image(mlx, "./textures/exit-open.xpm", &pixel, &pixel);
 	if(n == 1)
@@ -41,6 +58,16 @@ void put_pixels(node *map,void *mlx,void *mlx_win,int n)
 		dir = mlx_xpm_file_to_image(mlx, "./textures/left.xpm", &pixel, &pixel);
 	if(n == 4)
 		dir = mlx_xpm_file_to_image(mlx, "./textures/right.xpm", &pixel, &pixel);
+	if(del)
+	{
+		destroy_img(mlx,del);
+		del = NULL;
+	}
+	add_to_node(&del,wall);
+	add_to_node(&del,dir);
+	add_to_node(&del,background);
+	add_to_node(&del,exit);
+	add_to_node(&del,collect);
 	while (map)
 	{
 		i = 0;

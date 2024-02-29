@@ -44,9 +44,12 @@ int check_chars(node *map)
 }
 int check_map(node *map)
 {
+	static int count;
+	size_t size;
+
 	if(!map)
 		return(0);
-	size_t size = ft_strlen(map->content);
+	size = ft_strlen(map->content);
 	if(!check_chars(map))
 		return(0);
 	if(!check_wall(map->content,size-1))
@@ -60,8 +63,9 @@ int check_map(node *map)
 		if(*(char *)map->content != '1' || *((char *)map->content+size - 2)!= '1')
 			return(printf("invalid walls\n"),0);
 		map = map ->next;
+		count++;
 	}
-	if(!check_wall(map->content,size-1))
+	if(!check_wall(map->content,size-1) || count >= 21 || size >= 42)
 		return(printf("invalid walls\n"),0);
 	if(size != ft_strlen(map->content) +1)
 		return(printf("invalid last line\n"),0);
