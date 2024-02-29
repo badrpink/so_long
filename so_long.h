@@ -24,7 +24,6 @@ typedef struct info{
 	void *mlx;
 	void *mlx_win;
 	cord *position;
-	node *garbage;
 }info;
 
 typedef struct player{

@@ -2,8 +2,8 @@
 void get_height_width(info *all, node *map)
 {
 	int height = 0;
+		all->width = ft_strlen(map->content);
 	while(map)
-	all->width = ft_strlen(map->content);
 	{
 		height++;
 		map = map->next;
@@ -57,9 +57,9 @@ void put_pixels(node *map,void *mlx,void *mlx_win,int n)
 			if((((char *)map ->content)[i]) == 'C')
 				mlx_put_image_to_window(mlx,mlx_win,collect, x, y);
 			i++;
-			x+=64;
+			x+=pixel;
 		}
-		y+=64;
+		y+=pixel;
 		map = map ->next;
 	}
 }
@@ -134,7 +134,6 @@ int det_keys(int key,info *all)
 
 void draw_it(info all)
 {
-
 	all.mlx = mlx_init();
 	get_height_width(&all,all.map);
 	all.mlx_win=mlx_new_window(all.mlx,all.width*64-64,all.height*64,"SO_LONG");

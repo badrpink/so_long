@@ -3,7 +3,7 @@
 
 int check_file_name(char *str)
 {
-	int size = ft_strlen(str);
+	int size = count_len(str);
 	if(size < 5)
 		return(0);
 	if(str[size-4] == '.' && str[size-3] == 'b' && str[size-2] == 'e' && str[size-1] == 'r')
@@ -72,9 +72,9 @@ void clear_it(node *garbage)
 	{
 		clear = garbage;
 		garbage = garbage ->next;
+		free(clear->content);
 		free(clear);
 	}
-	free(garbage);
 }
 node *get_map(char *file)
 {

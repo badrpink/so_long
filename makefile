@@ -13,7 +13,7 @@ CFLAGS = -Wall -Werror -Wextra
 #MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 all: ${NAME} ${LIBFT} so_long.c
-	./so_long map.ber
+	./so_long ./maps/lady.ber
 ${NAME} : ${OBJ} ${LIBFT}
 	ar -rc $@ ${OBJ} $>
 	${CC} ${CFLAGS} -Lmlx -lmlx -framework OpenGL -framework AppKit so_long.c ${NAME} ${LIBFT} -o so_long

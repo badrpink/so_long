@@ -4,7 +4,9 @@ char *str_dup(char *str)
 	char *ret = malloc(ft_strlen(str));
 	if(!ret)
 		return(NULL);
-	return(strcpy(ret,str));
+	printf("%p\n",ret);
+	strcpy(ret,str);
+	return(ret);
 }
 node *dub_node(node *src)
 {
