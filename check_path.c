@@ -34,14 +34,7 @@ void flood_fill(node *map,int x,int y)
 	flood_fill(map,x,y+1);
 	flood_fill(map,x,y-1);
 }
-void print_node(node *map)
-{
-	while(map)
-	{
-		printf("%s",map->content);
-		map = map->next;
-	}
-}
+
 int check_path(node *map,cord *position)
 {
 	node *cpy_map = dub_node(map);
@@ -50,7 +43,7 @@ int check_path(node *map,cord *position)
 	int P = 0;
 	int C = 0;
 	int E = 0;
-	print_node(cpy_map);
+
 	while(cpy_map)
 	{
 		P+=count_ch('P',cpy_map->content);

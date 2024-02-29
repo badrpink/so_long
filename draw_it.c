@@ -31,15 +31,37 @@ void destroy_img(void *mlx,node *del)
 		free(clear);
 	}
 }
+int asg_ima(node *del,node *map,void *mlx,icons *img,int n)
+{
+	int pixel;
+
+	pixel = 64;
+	img -> wall = mlx_xpm_file_to_image(mlx, "./textures/wall.xpm", &pixel, &pixel);
+	img -> background = mlx_xpm_file_to_image(mlx, "./textures/background.xpm", &pixel, &pixel);
+	img -> exit = mlx_xpm_file_to_image(mlx, "./textures/exit-close.xpm", &pixel, &pixel);
+	img -> collect = mlx_xpm_file_to_image(mlx, "./textures/collect.xpm", &pixel, &pixel);
+	if(!check_char(map,'C'))
+		img -> exit = mlx_xpm_file_to_image(mlx, "./textures/exit-open.xpm", &pixel, &pixel);
+	if(n == 1)
+		img -> dir = mlx_xpm_file_to_image(mlx, "./textures/up.xpm", &pixel, &pixel);
+	if(n == 2)
+		img -> dir = mlx_xpm_file_to_image(mlx, "./textures/down.xpm", &pixel, &pixel);
+	if(n == 3)
+		img -> dir = mlx_xpm_file_to_image(mlx, "./textures/left.xpm", &pixel, &pixel);
+	if(n == 4)
+		img -> dir = mlx_xpm_file_to_image(mlx, "./textures/right.xpm", &pixel, &pixel);
+	add_to_node(&del,img -> wall);
+	add_to_node(&del,img -> background);
+	add_to_node(&del,img -> exit);
+	add_to_node(&del,img -> collect);
+	add_to_node(&del,img -> dir);
+	return(1);
+}
 int put_pixels(node *map,void *mlx,void *mlx_win,int n)
 {
 	int pixel = 64;
 	static node *del;
-	void *wall;
-	void *background;
-	void *exit;
-	void *collect;
-	void *dir;
+	icons img;
 	int i = 0;
 	int x = 0;
 	int y = 0;
@@ -49,26 +71,8 @@ int put_pixels(node *map,void *mlx,void *mlx_win,int n)
 		destroy_img(mlx,del);
 		del = NULL;
 	}
-	wall = mlx_xpm_file_to_image(mlx, "./textures/wall.xpm", &pixel, &pixel);
-	background = mlx_xpm_file_to_image(mlx, "./textures/background.xpm", &pixel, &pixel);
-	exit = mlx_xpm_file_to_image(mlx, "./textures/exit-close.xpm", &pixel, &pixel);
-	collect = mlx_xpm_file_to_image(mlx, "./textures/collect.xpm", &pixel, &pixel);
-	if(!check_char(map,'C'))
-		exit = mlx_xpm_file_to_image(mlx, "./textures/exit-open.xpm", &pixel, &pixel);
-	if(n == 1)
-		dir = mlx_xpm_file_to_image(mlx, "./textures/up.xpm", &pixel, &pixel);
-	if(n == 2)
-		dir = mlx_xpm_file_to_image(mlx, "./textures/down.xpm", &pixel, &pixel);
-	if(n == 3)
-		dir = mlx_xpm_file_to_image(mlx, "./textures/left.xpm", &pixel, &pixel);
-	if(n == 4)
-		dir = mlx_xpm_file_to_image(mlx, "./textures/right.xpm", &pixel, &pixel);
-	add_to_node(&del,wall);
-	add_to_node(&del,background);
-	add_to_node(&del,exit);
-	add_to_node(&del,collect);
-	add_to_node(&del,dir);
-	if(!dir || !collect || !exit || !background || !wall)
+	asg_ima(del,map,mlx,&img, n);
+	if(!img.dir || !img.collect || !img.exit || !img.background || !img.wall)
 		return(0);
 	while (map)
 	{
@@ -76,15 +80,15 @@ int put_pixels(node *map,void *mlx,void *mlx_win,int n)
 		x = 0;
 		while(((char *)map->content)[i])
 		{
-			mlx_put_image_to_window(mlx,mlx_win,background, x, y);
+			mlx_put_image_to_window(mlx,mlx_win,img.background, x, y);
 			if((((char *)map ->content)[i]) == '1')
-				mlx_put_image_to_window(mlx,mlx_win,wall, x, y);
+				mlx_put_image_to_window(mlx,mlx_win,img.wall, x, y);
 			if((((char *)map ->content)[i]) == 'P')
-				mlx_put_image_to_window(mlx,mlx_win,dir, x, y);
+				mlx_put_image_to_window(mlx,mlx_win,img.dir, x, y);
 			if((((char *)map ->content)[i]) == 'E')
-				mlx_put_image_to_window(mlx,mlx_win,exit, x, y);
+				mlx_put_image_to_window(mlx,mlx_win,img.exit, x, y);
 			if((((char *)map ->content)[i]) == 'C')
-				mlx_put_image_to_window(mlx,mlx_win,collect, x, y);
+				mlx_put_image_to_window(mlx,mlx_win,img.collect, x, y);
 			i++;
 			x+=pixel;
 		}
@@ -156,15 +160,16 @@ int det_keys(int key,info *all)
 			if(move_it(all,x,y,n))
 				printf("moves : %d\n",++moves);
 		if(c == 'E' && !check_char(all->map,'C'))
-			exit(0);
+			return(printf("GAME OVER\n"),exit(0),0);
 	}
 	if(key == 53)
-		exit(0);
+		return(printf("GAME CLOSED\n"),exit(0),0);
 	return(0);
 }
 
 void draw_it(info all)
 {
+	printf("GAME STARTED\n");
 	all.mlx = mlx_init();
 	get_height_width(&all,all.map);
 	all.mlx_win=mlx_new_window(all.mlx,all.width*64-64,all.height*64,"SO_LONG");

@@ -14,9 +14,9 @@ all: ${NAME}  so_long.c
 	./so_long map.ber
 ${NAME} : ${OBJ} 
 	ar -rc $@ ${OBJ} 
-	${CC} ${CFLAGS} -Lmlx -lmlx -framework OpenGL -framework AppKit so_long.c ${NAME}  -o so_long
+	${CC} ${CFLAGS} -lmlx -framework OpenGL -framework AppKit ${NAME}  -o so_long
 %.o: %.c ${LIB}
-	${CC} ${CFLAGS} -Lmlx -lmlx -framework OpenGL -framework -c -o $@ $<
+	${CC} ${CFLAGS} -lmlx -framework OpenGL -framework -c -o $@ $<
 clean:
 	rm -f ${OBJ}
 fclean: clean

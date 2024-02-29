@@ -25,12 +25,13 @@ typedef struct info{
 	cord *position;
 }info;
 
-typedef struct player{
-	void *up;
-	void *down;
-	void *right;
-	void *left;
-}player;
+typedef struct icons{
+	void *wall;
+	void *background;
+	void *exit;
+	void *collect;
+	void *dir;
+}icons;
 
 
 int check_map(node *map);
