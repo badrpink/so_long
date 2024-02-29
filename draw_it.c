@@ -6,7 +6,7 @@
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 19:32:13 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/02/29 19:47:12 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:05:40 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ int check_char(node *map,char c)
 void destroy_img(void *mlx,node *del)
 {
 	node *clear;
+	if(mlx)
 	while(del)
 	{
 		mlx_destroy_image(mlx,del->content);
+		free(del->content);
 		clear = del;
 		del = del->next;
 		free(clear);
