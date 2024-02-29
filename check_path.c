@@ -26,13 +26,21 @@ void put_char_map(node *map, int x,int y,char c)
 }
 void flood_fill(node *map,int x,int y)
 {
-	if( '1' == check_position(map,x,y) || check_position(map,x,y) == 'X')
+	if( '1' == check_position(map,x,y) || check_position(map,x,y) == 'X' || check_position(map,x,y) == 'E')
 		return;
 	put_char_map(map,x,y,'X');
 	flood_fill(map,x+1,y);
 	flood_fill(map,x-1,y);
 	flood_fill(map,x,y+1);
 	flood_fill(map,x,y-1);
+}
+void print_node(node *map)
+{
+	while(map)
+	{
+		printf("%s",map->content);
+		map = map->next;
+	}
 }
 int check_path(node *map,cord *position)
 {
@@ -42,6 +50,7 @@ int check_path(node *map,cord *position)
 	int P = 0;
 	int C = 0;
 	int E = 0;
+	print_node(cpy_map);
 	while(cpy_map)
 	{
 		P+=count_ch('P',cpy_map->content);
@@ -49,7 +58,7 @@ int check_path(node *map,cord *position)
 		E+=count_ch('E',cpy_map->content);
 		cpy_map = cpy_map->next;
 	}
-	if(C == 0 && P == 0 && E == 0)
+	if(C == 0 && P == 0 && E == 1)
 		return(clear_it(clear),1);
 	return(clear_it(clear),0);
 }

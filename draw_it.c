@@ -31,7 +31,7 @@ void destroy_img(void *mlx,node *del)
 		free(clear);
 	}
 }
-void put_pixels(node *map,void *mlx,void *mlx_win,int n)
+int put_pixels(node *map,void *mlx,void *mlx_win,int n)
 {
 	int pixel = 64;
 	static node *del;
@@ -68,6 +68,8 @@ void put_pixels(node *map,void *mlx,void *mlx_win,int n)
 	add_to_node(&del,exit);
 	add_to_node(&del,collect);
 	add_to_node(&del,dir);
+	if(!dir || !collect || !exit || !background || !wall)
+		return(0);
 	while (map)
 	{
 		i = 0;
@@ -89,6 +91,7 @@ void put_pixels(node *map,void *mlx,void *mlx_win,int n)
 		y+=pixel;
 		map = map ->next;
 	}
+	return(1);
 }
 
 int move_it(info *all,int x, int y,int n)
@@ -96,7 +99,8 @@ int move_it(info *all,int x, int y,int n)
 	static int pos;
 	if(pos != n)
 	{
-		put_pixels(all->map,all->mlx,all->mlx_win,n);
+		if(!put_pixels(all->map,all->mlx,all->mlx_win,n))
+			exit(1);
 		pos = n;
 		return(0);
 	}
@@ -167,4 +171,5 @@ void draw_it(info all)
 	put_pixels(all.map,all.mlx,all.mlx_win,1);
 	mlx_hook(all.mlx_win, 2, 0,det_keys, &all);
 	mlx_loop(all.mlx);
+	exit(0);
 }
