@@ -15,8 +15,8 @@ CFLAGS = -Wall -Werror -Wextra
 all: ${NAME} ${LIBFT} so_long.c
 	./so_long map.ber
 ${NAME} : ${OBJ} ${LIBFT}
-	ar -rc $@ ${OBJ} $>
-	${CC} ${CFLAGS} -Lmlx -lmlx -framework OpenGL -framework AppKit so_long.c ${NAME} ${LIBFT} -o so_long
+	ar -rc $@ ${OBJ} 
+	${CC} ${CFLAGS} -Lmlx -lmlx -framework OpenGL -framework AppKit so_long.c ${NAME}  -o so_long
 ${LIBFT}:
 	${MAKE} -C ./libft
 %.o: %.c ${LIB}

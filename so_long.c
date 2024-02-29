@@ -17,9 +17,9 @@ void add_to_node(node **nod, char *content)
 	node *new;
 	node *temp;
 	
+	new = malloc(sizeof(node));
 	if(!new)
 		return;
-	new = malloc(sizeof(node));
 	new -> content = content;
 	new -> next = NULL;
 	if(!*nod)	

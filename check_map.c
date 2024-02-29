@@ -49,7 +49,7 @@ int check_map(node *map)
 
 	if(!map)
 		return(0);
-	size = ft_strlen(map->content);
+	size = count_len(map->content);
 	if(!check_chars(map))
 		return(0);
 	if(!check_wall(map->content,size-1))
@@ -58,7 +58,7 @@ int check_map(node *map)
 	{
 		if(!check_accur("01PCE\n",map->content))
 			return(printf("invalid chars\n"),0);
-		if(size != ft_strlen(map->content))
+		if(size != count_len(map->content))
 			return(printf("invalid size\n"),0);
 		if(*(char *)map->content != '1' || *((char *)map->content+size - 2)!= '1')
 			return(printf("invalid walls\n"),0);
@@ -67,7 +67,7 @@ int check_map(node *map)
 	}
 	if(!check_wall(map->content,size-1) || count >= 21 || size >= 42)
 		return(printf("invalid walls\n"),0);
-	if(size != ft_strlen(map->content) +1)
+	if(size != count_len(map->content) +1)
 		return(printf("invalid last line\n"),0);
 	return(1);
 }

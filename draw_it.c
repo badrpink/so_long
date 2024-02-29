@@ -2,7 +2,7 @@
 void get_height_width(info *all, node *map)
 {
 	int height = 0;
-		all->width = ft_strlen(map->content);
+		all->width = count_len(map->content);
 	while(map)
 	{
 		height++;
@@ -44,6 +44,11 @@ void put_pixels(node *map,void *mlx,void *mlx_win,int n)
 	int x = 0;
 	int y = 0;
 
+	if(del)
+	{
+		destroy_img(mlx,del);
+		del = NULL;
+	}
 	wall = mlx_xpm_file_to_image(mlx, "./textures/wall.xpm", &pixel, &pixel);
 	background = mlx_xpm_file_to_image(mlx, "./textures/background.xpm", &pixel, &pixel);
 	exit = mlx_xpm_file_to_image(mlx, "./textures/exit-close.xpm", &pixel, &pixel);
@@ -58,16 +63,11 @@ void put_pixels(node *map,void *mlx,void *mlx_win,int n)
 		dir = mlx_xpm_file_to_image(mlx, "./textures/left.xpm", &pixel, &pixel);
 	if(n == 4)
 		dir = mlx_xpm_file_to_image(mlx, "./textures/right.xpm", &pixel, &pixel);
-	if(del)
-	{
-		destroy_img(mlx,del);
-		del = NULL;
-	}
 	add_to_node(&del,wall);
-	add_to_node(&del,dir);
 	add_to_node(&del,background);
 	add_to_node(&del,exit);
 	add_to_node(&del,collect);
+	add_to_node(&del,dir);
 	while (map)
 	{
 		i = 0;
