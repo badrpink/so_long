@@ -38,10 +38,11 @@ int asg_ima(node *del,node *map,void *mlx,icons *img,int n)
 	pixel = 64;
 	img -> wall = mlx_xpm_file_to_image(mlx, "./textures/wall.xpm", &pixel, &pixel);
 	img -> background = mlx_xpm_file_to_image(mlx, "./textures/background.xpm", &pixel, &pixel);
-	img -> exit = mlx_xpm_file_to_image(mlx, "./textures/exit-close.xpm", &pixel, &pixel);
 	img -> collect = mlx_xpm_file_to_image(mlx, "./textures/collect.xpm", &pixel, &pixel);
 	if(!check_char(map,'C'))
 		img -> exit = mlx_xpm_file_to_image(mlx, "./textures/exit-open.xpm", &pixel, &pixel);
+	else
+		img -> exit = mlx_xpm_file_to_image(mlx, "./textures/exit-close.xpm", &pixel, &pixel);
 	if(n == 1)
 		img -> dir = mlx_xpm_file_to_image(mlx, "./textures/up.xpm", &pixel, &pixel);
 	if(n == 2)
@@ -57,14 +58,41 @@ int asg_ima(node *del,node *map,void *mlx,icons *img,int n)
 	add_to_node(&del,img -> dir);
 	return(1);
 }
+
+void put_imgs(icons *img,node *map,void *mlx,void *mlx_win, int pixel)
+{
+	int i;
+	int x;
+	int y;
+
+	y = 0;
+	while (map)
+	{
+		i = 0;
+		x = 0;
+		while(((char *)map->content)[i])
+		{
+			mlx_put_image_to_window(mlx,mlx_win,img->background, x, y);
+			if((((char *)map ->content)[i]) == '1')
+				mlx_put_image_to_window(mlx,mlx_win,img->wall, x, y);
+			if((((char *)map ->content)[i]) == 'P')
+				mlx_put_image_to_window(mlx,mlx_win,img->dir, x, y);
+			if((((char *)map ->content)[i]) == 'E')
+				mlx_put_image_to_window(mlx,mlx_win,img->exit, x, y);
+			if((((char *)map ->content)[i]) == 'C')
+				mlx_put_image_to_window(mlx,mlx_win,img->collect, x, y);
+			i++;
+			x+=pixel;
+		}
+		y+=pixel;
+		map = map ->next;
+	}
+}
 int put_pixels(node *map,void *mlx,void *mlx_win,int n)
 {
 	int pixel = 64;
 	static node *del;
 	icons img;
-	int i = 0;
-	int x = 0;
-	int y = 0;
 
 	if(del)
 	{
@@ -74,27 +102,7 @@ int put_pixels(node *map,void *mlx,void *mlx_win,int n)
 	asg_ima(del,map,mlx,&img, n);
 	if(!img.dir || !img.collect || !img.exit || !img.background || !img.wall)
 		return(0);
-	while (map)
-	{
-		i = 0;
-		x = 0;
-		while(((char *)map->content)[i])
-		{
-			mlx_put_image_to_window(mlx,mlx_win,img.background, x, y);
-			if((((char *)map ->content)[i]) == '1')
-				mlx_put_image_to_window(mlx,mlx_win,img.wall, x, y);
-			if((((char *)map ->content)[i]) == 'P')
-				mlx_put_image_to_window(mlx,mlx_win,img.dir, x, y);
-			if((((char *)map ->content)[i]) == 'E')
-				mlx_put_image_to_window(mlx,mlx_win,img.exit, x, y);
-			if((((char *)map ->content)[i]) == 'C')
-				mlx_put_image_to_window(mlx,mlx_win,img.collect, x, y);
-			i++;
-			x+=pixel;
-		}
-		y+=pixel;
-		map = map ->next;
-	}
+	put_imgs(&img,map,mlx,mlx_win,pixel);
 	return(1);
 }
 
@@ -126,21 +134,20 @@ void turn_it(int key, cord *pos,int *x, int *y, int *n)
 	{
 		*y-=1;
 		*n = 1;
-
 	}
 	if((key == 2 || key == 124 ))
 	{
-		*x+=1;
+		*x += 1;
 		*n = 4;
 	}
 	if((key == 0 || key == 123 ))
 	{
-		*x-=1;
+		*x -= 1;
 		*n = 3;
 	}
 	if((key == 1 || key == 125))
 	{
-		*y+=1;
+		*y += 1;
 		*n =2;
 	}
 }

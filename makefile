@@ -21,8 +21,5 @@ clean:
 	rm -f ${OBJ}
 fclean: clean
 	rm -f ${NAME} so_long
-push:
-	git add *
-	git commit -m "update"
-	git push
+
 re: fclean all
