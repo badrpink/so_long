@@ -6,7 +6,7 @@
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 06:49:38 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/02/29 09:23:04 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/02/29 19:29:43 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,17 +114,17 @@ int main(int ac, char **av)
 	info	all;
 
 	if (ac != 2)
-		return (printf("invalid argements\n"), 0);
+		return (ft_printf("invalid argements\n"), 0);
 	if ( -1 == open(av[1],O_RDONLY))
-		return (printf("cant open file\n"), 0);
+		return (ft_printf("cant open file\n"), 0);
 	if (!check_file_name(av[1]))
-		return (printf("invalid file extension\n"));
+		return (ft_printf("invalid file extension\n"));
 	all.map = get_map(av[1]);
 	if (!check_map(all.map))
-		return (clear_it(all.map),printf("invalid_map\n"), 0);
+		return (clear_it(all.map),ft_printf("invalid_map\n"), 0);
 	all.position = get_position(all.map,'P');
 	if (!check_path(all.map, all.position))
-		return (clear_it(all.map), printf("invalid_path\n"), 0);
+		return (clear_it(all.map), ft_printf("invalid_path\n"), 0);
 	draw_it(all);
 	clear_it(all.map);
 }

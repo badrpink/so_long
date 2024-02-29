@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_it.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/29 19:32:13 by mel-ward          #+#    #+#             */
+/*   Updated: 2024/02/29 19:47:12 by mel-ward         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "so_long.h"
 void get_height_width(info *all, node *map)
 {
@@ -31,24 +44,14 @@ void destroy_img(void *mlx,node *del)
 		free(clear);
 	}
 }
-void *generate_wall(void *mlx,int pixel,int x, int y)
-{
-	if(x > y)
-		return(mlx_xpm_file_to_image(mlx, "./textures/wall-1.xpm", &pixel, &pixel));
-	if(x == y)
-		return(mlx_xpm_file_to_image(mlx, "./textures/wall-2.xpm", &pixel, &pixel));
-	if(x <  y)
-		return(mlx_xpm_file_to_image(mlx, "./textures/wall-3.xpm", &pixel, &pixel));
-	//return(mlx_xpm_file_to_image(mlx, "./textures/wall-4.xpm", &pixel, &pixel));
-	return(NULL);
-}
+
 int asg_ima(node *del,node *map,void *mlx,icons *img,int n)
 {
 	int pixel;
 
 	pixel = 64;
-	img -> wall = mlx_xpm_file_to_image(mlx, "./textures/wall.xpm", &pixel, &pixel);
-	img -> background = mlx_xpm_file_to_image(mlx, "./textures/background-1.xpm", &pixel, &pixel);
+	img -> wall = mlx_xpm_file_to_image(mlx, "./textures/wall-1.xpm", &pixel, &pixel);
+	img -> background = mlx_xpm_file_to_image(mlx, "./textures/background.xpm", &pixel, &pixel);
 	img -> collect = mlx_xpm_file_to_image(mlx, "./textures/collect.xpm", &pixel, &pixel);
 	if(!check_char(map,'C'))
 		img -> exit = mlx_xpm_file_to_image(mlx, "./textures/exit-open.xpm", &pixel, &pixel);
@@ -85,7 +88,7 @@ void put_imgs(icons *img,node *map,void *mlx,void *mlx_win, int pixel)
 		{
 			mlx_put_image_to_window(mlx,mlx_win,img->background, x, y);
 			if((((char *)map ->content)[i]) == '1')
-				mlx_put_image_to_window(mlx,mlx_win,generate_wall(mlx,pixel,x,y), x, y);
+				mlx_put_image_to_window(mlx,mlx_win,img->wall, x, y);
 			if((((char *)map ->content)[i]) == 'P')
 				mlx_put_image_to_window(mlx,mlx_win,img->dir, x, y);
 			if((((char *)map ->content)[i]) == 'E')
@@ -176,18 +179,18 @@ int det_keys(int key,info *all)
 		c = check_position(all->map,x,y);
 		if(c == '0' || c == 'C')
 			if(move_it(all,x,y,n))
-				printf("moves : %d\n",++moves);
+				ft_printf("moves : %d\n",++moves);
 		if(c == 'E' && !check_char(all->map,'C'))
-			return(printf("GAME OVER\n"),exit(0),0);
+			return(ft_printf("GAME OVER\n"),exit(0),0);
 	}
 	if(key == 53)
-		return(printf("GAME CLOSED\n"),exit(0),0);
+		return(ft_printf("GAME CLOSED\n"),exit(0),0);
 	return(0);
 }
 
 void draw_it(info all)
 {
-	printf("GAME STARTED\n");
+	ft_printf("GAME STARTED\n");
 	all.mlx = mlx_init();
 	get_height_width(&all,all.map);
 	all.mlx_win=mlx_new_window(all.mlx,all.width*64-64,all.height*64,"SO_LONG");

@@ -2,6 +2,10 @@ NAME = so_long.a
 LIB = so_long.h ./libft/libft.h get_next_line.h
 SRC = get_next_line.c \
 get_next_line_utils.c\
+ft_printf.c\
+ft_putstr_fd.c\
+ft_strlen.c\
+ft_toupper.c\
 so_long.c\
 check_map.c\
 check_path.c\

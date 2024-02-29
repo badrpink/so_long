@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/29 19:32:24 by mel-ward          #+#    #+#             */
+/*   Updated: 2024/02/29 19:32:31 by mel-ward         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int check_wall(char *line,int n)
@@ -53,21 +65,21 @@ int check_map(node *map)
 	if(!check_chars(map))
 		return(0);
 	if(!check_wall(map->content,size-1))
-		return(printf("invalid walls\n"),0);
+		return(ft_printf("invalid walls\n"),0);
 	while(map->next)
 	{
 		if(!check_accur("01PCE\n",map->content))
-			return(printf("invalid chars\n"),0);
+			return(ft_printf("invalid chars\n"),0);
 		if(size != count_len(map->content))
-			return(printf("invalid size\n"),0);
+			return(ft_printf("invalid size\n"),0);
 		if(*(char *)map->content != '1' || *((char *)map->content+size - 2)!= '1')
-			return(printf("invalid walls\n"),0);
+			return(ft_printf("invalid walls\n"),0);
 		map = map ->next;
 		count++;
 	}
 	if(!check_wall(map->content,size-1) || count >= 21 || size >= 42)
-		return(printf("invalid walls\n"),0);
+		return(ft_printf("invalid walls\n"),0);
 	if(size != count_len(map->content) +1)
-		return(printf("invalid last line\n"),0);
+		return(ft_printf("invalid last line\n"),0);
 	return(1);
 }
