@@ -3,39 +3,36 @@
 
 int check_file_name(char *str)
 {
-	int size = count_len(str);
+	int size; 
+
+	size = count_len(str);
 	if(size < 5)
 		return(0);
-	if(str[size-4] == '.' && str[size-3] == 'b' && str[size-2] == 'e' && str[size-1] == 'r')
+	if(str[size - 4] == '.' && str[size - 3] == 'b' && str[size - 2] == 'e' && str[size - 1] == 'r')
 		return(1);
 	return(0);
 }
 void add_to_node(node **nod, char *content)
 {
-	node *new = malloc(sizeof(node));
+	node *new;
 	node *temp;
+	
 	if(!new)
 		return;
-	new ->content = content;
-	new ->next = NULL;
+	new = malloc(sizeof(node));
+	new -> content = content;
+	new -> next = NULL;
 	if(!*nod)	
 		*nod = new;
 	else
 	{
 		temp = *nod;
-		while(temp->next)
-			temp=temp->next;
-		temp->next = new;
+		while(temp -> next)
+			temp = temp -> next;
+		temp -> next = new;
 	}
 }
-void print_node(node *map)
-{
-	while(map)
-	{
-		printf("%s",map->content);
-		map = map->next;
-	}
-}
+
 char check_position(node *map,int x,int y)
 {
 	int count_y = 0;
@@ -45,10 +42,12 @@ char check_position(node *map,int x,int y)
 }
 cord *get_position(node *map,char c)
 {
-	int count_y = 0;
+	int count_y;
 	char *str;
 	int count_x;
 	cord *player;
+
+	count_y = 0;
 	player = malloc(sizeof(cord));
 	while(map)
 	{
@@ -68,6 +67,7 @@ cord *get_position(node *map,char c)
 void clear_it(node *garbage)
 {
 	node *clear;
+
 	while(garbage)
 	{
 		clear = garbage;
@@ -78,9 +78,12 @@ void clear_it(node *garbage)
 }
 node *get_map(char *file)
 {
-	int fd = open(file,O_RDONLY);
-	node *map = NULL;
+	int fd;
+	node *map;
 	char *temp;
+
+	map = NULL;
+	fd = open(file,O_RDONLY);
 	while((temp = get_next_line(fd)))
 		add_to_node(&map, temp);
 	return(map);
