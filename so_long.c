@@ -6,7 +6,7 @@
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 06:49:38 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/02/29 06:58:56 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/02/29 07:16:03 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,23 @@ int	check_file_name(char *str)
 	size = count_len(str);
 	if (size < 5)
 		return (0);
-	if (str[size - 4] == '.' && str[size - 3] == 'b' 
-	&& str[size - 2] == 'e' && str[size - 1] == 'r')
+	if (str[size - 4] == '.' && str[size - 3] == 'b'
+		&& str[size - 2] == 'e' && str[size - 1] == 'r')
 		return (1);
 	return (0);
 }
-void add_to_node(node **nod, char *content)
+
+void	add_to_node(node **nod, char *content)
 {
-	node *new;
-	node *temp;
-	
+	node	*new;
+	node	*temp;
+
 	new = malloc(sizeof(node));
 	if (!new)
 		return ;
 	new -> content = content;
 	new -> next = NULL;
-	if (!*nod)	
+	if (!*nod)
 		*nod = new;
 	else
 	{
@@ -45,19 +46,22 @@ void add_to_node(node **nod, char *content)
 	}
 }
 
-char check_position(node *map,int x,int y)
+char	check_position(node *map, int x, int y)
 {
-	int count_y = 0;
+	int	count_y;
+
+	count_y = 0;
 	while (map && ++count_y < y)
 		map = map ->next;
 	return (((char *)map->content)[x]);
 }
-cord *get_position(node *map,char c)
+
+cord	*get_position(node *map, char c)
 {
-	int count_y;
-	char *str;
-	int count_x;
-	cord *player;
+	int		count_y;
+	char	*str;
+	int		count_x;
+	cord	*player;
 
 	count_y = 0;
 	player = malloc(sizeof(cord));
@@ -67,18 +71,21 @@ cord *get_position(node *map,char c)
 		count_y++;
 		count_x = 0;
 		while (str[count_x])
+		{
 			if (str[count_x++] == c)
-				{
-					player->x = count_x -1;
-					player->y = count_y;
-				}
+			{
+				player->x = count_x -1;
+				player->y = count_y;
+			}
+		}
 		map = map -> next;
 	}
 	return (player);
 }
-void clear_it(node *garbage)
+
+void	clear_it(node *garbage)
 {
-	node *clear;
+	node	*clear;
 
 	while (garbage)
 	{
@@ -88,31 +95,28 @@ void clear_it(node *garbage)
 		free(clear);
 	}
 }
-node *get_map(char *file)
+
+node	*get_map(char *file)
 {
-	int fd;
-	node *map;
-	char *temp;
+	int		fd;
+	node	*map;
+	char	*temp;
 
 	map = NULL;
-	fd = open(file,O_RDONLY);
+	fd = open(file, O_RDONLY);
 	while ((temp = get_next_line(fd)))
 		add_to_node(&map, temp);
 	return (map);
 }
-void foo(void)
-{
-    system("leaks so_long");
-}
 
 int main(int ac, char **av)
 {
-	info all;
-    atexit(foo);
+	info	all;
+
 	if (ac != 2)
-		return (printf("invalid argements\n"),0);
+		return (printf("invalid argements\n"), 0);
 	if ( -1 == open(av[1],O_RDONLY))
-		return (printf("cant open file\n"),0);
+		return (printf("cant open file\n"), 0);
 	if (!check_file_name(av[1]))
 		return (printf("invalid file extension\n"));
 	all.map = get_map(av[1]);
@@ -120,7 +124,7 @@ int main(int ac, char **av)
 		return (clear_it(all.map),printf("invalid_map\n"), 0);
 	all.position = get_position(all.map,'P');
 	if (!check_path(all.map, all.position))
-		return (clear_it(all.map), printf("invalid_path\n"),0);
+		return (clear_it(all.map), printf("invalid_path\n"), 0);
 	draw_it(all);
 	clear_it(all.map);
 }
