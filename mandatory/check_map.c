@@ -6,7 +6,7 @@
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 19:32:24 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/03/01 09:03:29 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/03/01 12:49:53 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_accur(char *chars, char *line)
 	return (1);
 }
 
-int	check_chars(node *map)
+int	check_chars(t_node *map)
 {
 	int	p;
 	int	c;
@@ -65,7 +65,7 @@ int	check_chars(node *map)
 	return (0);
 }
 
-int	check_map(node *map)
+int	check_map(t_node *map)
 {
 	static int	count;
 	size_t		size;

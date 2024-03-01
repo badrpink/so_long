@@ -10,7 +10,8 @@ SRC = ./get_next_line/get_next_line.c \
 ./mandatory/check_map.c\
 ./mandatory/check_path.c\
 ./mandatory/draw_it.c\
-./mandatory/node_it.c
+./mandatory/so_long_utils.c\
+./mandatory/draw_it_utils.c
 OBJ = $(SRC:.c=.o)
 CC = cc
 CFLAGS = -Wall -Werror -Wextra 

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   node_it.c                                          :+:      :+:    :+:   */
+/*   so_long_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 09:42:29 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/03/01 10:35:22 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/03/01 12:51:34 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	add_to_node(node **nod, char *content)
+void	add_to_node(t_node **nod, char *content)
 {
-	node	*new;
-	node	*temp;
+	t_node	*new;
+	t_node	*temp;
 
 	if (content)
 	{
-		new = malloc(sizeof(node));
+		new = malloc(sizeof(t_node));
 		if (!new)
 			return ;
 		new -> content = content;
@@ -36,20 +36,20 @@ void	add_to_node(node **nod, char *content)
 	}
 }
 
-void	clear_it(node *garbage)
+void	clear_it(t_node *garbage)
 {
-	node	*clear;
+	t_node	*clear;
 
 	while (garbage)
 	{
 		clear = garbage;
-		free(clear->content);
 		garbage = garbage ->next;
+		free(clear->content);
 		free(clear);
 	}
 }
 
-void	get_height_width(info *all, node *map)
+void	get_height_width(t_info *all, t_node *map)
 {
 	int	height;
 
@@ -63,7 +63,7 @@ void	get_height_width(info *all, node *map)
 	all->height = height;
 }
 
-int	check_char(node *map, char c)
+int	check_char(t_node *map, char c)
 {
 	while (map)
 	{
@@ -72,17 +72,4 @@ int	check_char(node *map, char c)
 		map = map ->next;
 	}
 	return (0);
-}
-
-void	destroy_img(void *mlx, node *del)
-{
-	node	*clear;
-
-	while (del)
-	{
-		mlx_destroy_image(mlx, del->content);
-		clear = del;
-		del = del->next;
-		free(clear);
-	}
 }

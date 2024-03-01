@@ -6,7 +6,7 @@
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 06:49:38 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/03/01 10:36:56 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/03/01 12:49:03 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,27 @@ int	check_file_name(char *str)
 	return (0);
 }
 
-char	check_position(node *map, int x, int y)
+char	check_position(t_node *map, int x, int y)
 {
 	int	count_y;
 
 	count_y = 0;
 	while (map && ++count_y < y)
-		map = map ->next;
+		map = map->next;
 	return (((char *)map->content)[x]);
 }
 
-cord	*get_position(node *map, char c)
+t_cord	*get_position(t_node *map, char c)
 {
 	int		count_y;
 	char	*str;
 	int		count_x;
-	cord	*player;
+	t_cord	*player;
 
 	count_y = 0;
-	player = malloc(sizeof(cord));
-	if(!player)
-		return(NULL);
+	player = malloc(sizeof(t_cord));
+	if (!player)
+		return (NULL);
 	while (map)
 	{
 		str = (char *)map->content;
@@ -64,10 +64,10 @@ cord	*get_position(node *map, char c)
 	return (player);
 }
 
-node	*get_map(char *file)
+t_node	*get_map(char *file)
 {
 	int		fd;
-	node	*map;
+	t_node	*map;
 	char	*temp;
 	int		n;
 
@@ -84,16 +84,10 @@ node	*get_map(char *file)
 	return (map);
 }
 
-void	f()
-{
-	system("leaks so_long");	
-}
-
 int	main(int ac, char **av)
 {
-	info	all;
+	t_info	all;
 
-	atexit(f);
 	if (ac != 2)
 		return (ft_printf("ERROR\ninvalid argements\n"), 0);
 	if (-1 == open(av[1], O_RDONLY))
@@ -104,10 +98,11 @@ int	main(int ac, char **av)
 	if (!check_map(all.map))
 		return (clear_it(all.map), ft_printf("ERROR\ninvalid_map\n"), 0);
 	all.position = get_position(all.map, 'P');
-	if(!all.position)
-		return(free(all.position),ft_printf("ERROR\n"),0);
+	if (!all.position)
+		return (free(all.position), ft_printf("ERROR\n"), 0);
 	if (!check_path(all.map, all.position))
-		return (free(all.position),clear_it(all.map), ft_printf("ERROR\ninvalid_path\n"), 0);
+		return (free(all.position), clear_it(all.map),
+			ft_printf("ERROR\ninvalid_path\n"), 0);
 	draw_it(all);
 	clear_it(all.map);
 }
