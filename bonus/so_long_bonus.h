@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 12:38:59 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/03/01 14:32:37 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:38:09 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ int		asg_ima(t_node *map, void *mlx, t_icons *img, int n);
 void	put_imgs(t_icons *img, t_node *map, void *mlx, void *mlx_win);
 int		put_pixels(t_node *map, void *mlx, void *mlx_win, int n);
 int		move_it(t_info *all, int x, int y, int n);
+char	*put_moves(int moves);
 #endif

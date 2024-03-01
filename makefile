@@ -20,8 +20,8 @@ BSRC = ./bonus/so_long_bonus.c\
 ./bonus/check_path_bonus.c\
 ./bonus/draw_it_bonus.c\
 ./bonus/so_long_utils_bonus.c\
-./bonus/draw_it_utils_bonus.c
-
+./bonus/draw_it_utils_bonus.c\
+./bonus/put_str_bonus.c
 OBJ = $(SRC:.c=.o)
 BOBJ = $(BSRC:.c=.o)
 EX_OBJ = $(EX_SRC:.c=.o)

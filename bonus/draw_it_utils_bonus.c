@@ -6,7 +6,7 @@
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:03:27 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/03/01 16:45:46 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:04:47 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	asg_ima(t_node *map, void *mlx, t_icons *img, int n)
 
 void	turn_to_screen(t_info all, int x, int y, char c)
 {
-	mlx_string_put(all.mlx,all.mlx_win, 64, 64, 0x0FF,"HELLO");
 	mlx_put_image_to_window(all.mlx, all.mlx_win, all.img->background, x, y);
 	if (c == '1')
 		mlx_put_image_to_window(all.mlx, all.mlx_win, all.img->wall, x, y);
@@ -50,6 +49,7 @@ void	turn_to_screen(t_info all, int x, int y, char c)
 		mlx_put_image_to_window(all.mlx, all.mlx_win, all.img->exit, x, y);
 	if (c == 'C')
 		mlx_put_image_to_window(all.mlx, all.mlx_win, all.img->collect, x, y);
+	
 }
 
 void	put_imgs(t_icons *img, t_node *map, void *mlx, void *mlx_win)

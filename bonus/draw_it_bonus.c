@@ -6,7 +6,7 @@
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 19:32:13 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/03/01 16:45:09 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:53:06 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,20 @@ int	det_keys(int key, t_info *all)
 	char		c;
 	t_cord		move;
 	int			n;
-
+	char *move_str;
 	if (key >= 0)
 	{
 		turn_it(key, all->position, &move, &n);
 		c = check_position(all->map, move.x, move.y);
 		if (c == '0' || c == 'C')
 			if (move_it(all, move.x, move.y, n))
-				mlx_string_put(all->mlx,all->mlx_win, 64, 64, 0x0FF,"HELLO");
-				//ft_printf("moves : %d\n", ++moves);
+				++moves;
 		if (c == 'E' && !check_char(all->map, 'C'))
 			return (ft_printf("GAME OVER\n"), exit(0), 0);
 	}
+	move_str = put_moves(moves);
+	mlx_string_put(all->mlx,all->mlx_win, 32, 5, 0x0,move_str);
+	free(move_str);
 	if (key == 53)
 		return (ft_printf("GAME CLOSED\n"), exit(0), 0);
 	return (0);
@@ -69,6 +71,7 @@ void	draw_it(t_info all)
 	all.mlx_win = mlx_new_window(all.mlx,
 			all.width * 64 - 64, all.height * 64, "SO_LONG_BONUS");
 	put_pixels(all.map, all.mlx, all.mlx_win, 1);
+	mlx_string_put(all.mlx,all.mlx_win, 32, 5, 0x0,"MOVES 0");
 	mlx_hook(all.mlx_win, 2, 0, det_keys, &all);
 	mlx_loop(all.mlx);
 	exit(0);

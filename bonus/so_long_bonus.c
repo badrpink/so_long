@@ -6,7 +6,7 @@
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 06:49:38 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/03/01 15:16:45 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:43:09 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,15 @@ t_node	*get_map(char *file)
 	}
 	return (map);
 }
-
+void f()
+{
+	system("leaks so_long_bonus");
+}
 int	main(int ac, char **av)
 {
 	t_info	all;
 
+	atexit(f);
 	if (ac != 2)
 		return (ft_printf("ERROR\ninvalid argements\n"), 0);
 	if (-1 == open(av[1], O_RDONLY))
