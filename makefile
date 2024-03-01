@@ -32,16 +32,14 @@ all: ${NAME}
 	./so_long ./maps/map.ber
 ${NAME} : ${OBJ} ${EX_OBJ}
 	${CC} ${CFLAGS} -lmlx -framework OpenGL -framework AppKit ${OBJ} ${EX_OBJ} -o ${NAME}
-
-%.o: %.c ${LIB}
-	${CC} ${CFLAGS} -c -o $@ $<
-bonus: ${BNAME}
-	./so_long_bonus ./maps/map.ber
 ${BNAME}: ${BOBJ} ${EX_OBJ}
 	${CC} ${CFLAGS} -lmlx -framework OpenGL -framework AppKit ${BOBJ} ${EX_OBJ} -o ${BNAME}
 
-%_bonus.o: %_bonus.c so_long_bonus.h
-		${CC} ${CFLAGS} -lmlx -framework OpenGL -framework AppKit  -c -o $@ $<
+%.o: %.c 
+	${CC} ${CFLAGS} -c -o $@ $<
+bonus: ${BNAME}
+	./so_long_bonus ./maps/map.ber
+
 clean:
 	rm -f ${OBJ} ${BOBJ}
 fclean: clean
