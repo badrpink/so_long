@@ -6,7 +6,7 @@
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 09:42:29 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/03/01 09:48:59 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:35:22 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	clear_it(node *garbage)
 	while (garbage)
 	{
 		clear = garbage;
-		garbage = garbage ->next;
 		free(clear->content);
+		garbage = garbage ->next;
 		free(clear);
 	}
 }

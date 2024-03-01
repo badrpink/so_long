@@ -6,7 +6,7 @@
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 06:49:38 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/03/01 10:22:23 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:36:56 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ int	main(int ac, char **av)
 		return (clear_it(all.map), ft_printf("ERROR\ninvalid_map\n"), 0);
 	all.position = get_position(all.map, 'P');
 	if(!all.position)
-		return(ft_printf("ERROR\n"),0);
+		return(free(all.position),ft_printf("ERROR\n"),0);
 	if (!check_path(all.map, all.position))
-		return (clear_it(all.map), ft_printf("ERROR\ninvalid_path\n"), 0);
+		return (free(all.position),clear_it(all.map), ft_printf("ERROR\ninvalid_path\n"), 0);
 	draw_it(all);
 	clear_it(all.map);
 }
