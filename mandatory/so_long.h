@@ -6,7 +6,7 @@
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 12:38:59 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/03/01 12:53:01 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/03/01 14:32:37 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,6 @@ typedef struct t_cord
 	int	y;
 }	t_cord;
 
-typedef struct t_info
-{
-	t_node	*map;
-	int		height;
-	int		width;
-	void	*mlx;
-	void	*mlx_win;
-	t_cord	*position;
-}	t_info;
-
 typedef struct t_icons
 {
 	void	*wall;
@@ -48,6 +38,17 @@ typedef struct t_icons
 	void	*collect;
 	void	*dir;
 }	t_icons;
+
+typedef struct t_info
+{
+	t_node	*map;
+	int		height;
+	int		width;
+	void	*mlx;
+	void	*mlx_win;
+	t_icons	*img;
+	t_cord	*position;
+}	t_info;
 
 int		check_map(t_node *map);
 int		check_wall(char *line, int n);

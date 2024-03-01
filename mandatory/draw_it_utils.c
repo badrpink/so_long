@@ -6,7 +6,7 @@
 /*   By: mel-ward <mel-ward@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 11:03:27 by mel-ward          #+#    #+#             */
-/*   Updated: 2024/03/01 13:07:56 by mel-ward         ###   ########.fr       */
+/*   Updated: 2024/03/01 14:39:02 by mel-ward         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,25 @@ int	asg_ima(t_node *map, void *mlx, t_icons *img, int n)
 	return (1);
 }
 
+void	turn_to_screen(t_info all, int x, int y, char c)
+{
+	mlx_put_image_to_window(all.mlx, all.mlx_win, all.img->background, x, y);
+	if (c == '1')
+		mlx_put_image_to_window(all.mlx, all.mlx_win, all.img->wall, x, y);
+	if (c == 'P')
+		mlx_put_image_to_window(all.mlx, all.mlx_win, all.img->dir, x, y);
+	if (c == 'E')
+		mlx_put_image_to_window(all.mlx, all.mlx_win, all.img->exit, x, y);
+	if (c == 'C')
+		mlx_put_image_to_window(all.mlx, all.mlx_win, all.img->collect, x, y);
+}
+
 void	put_imgs(t_icons *img, t_node *map, void *mlx, void *mlx_win)
 {
-	int	i;
-	int	x;
-	int	y;
+	int		i;
+	int		x;
+	int		y;
+	t_info	all;
 
 	y = 0;
 	while (map)
@@ -51,15 +65,10 @@ void	put_imgs(t_icons *img, t_node *map, void *mlx, void *mlx_win)
 		x = 0;
 		while (((char *)map->content)[i])
 		{
-			mlx_put_image_to_window(mlx, mlx_win, img->background, x, y);
-			if ((((char *)map ->content)[i]) == '1')
-				mlx_put_image_to_window(mlx, mlx_win, img->wall, x, y);
-			if ((((char *)map ->content)[i]) == 'P')
-				mlx_put_image_to_window(mlx, mlx_win, img->dir, x, y);
-			if ((((char *)map ->content)[i]) == 'E')
-				mlx_put_image_to_window(mlx, mlx_win, img->exit, x, y);
-			if ((((char *)map ->content)[i]) == 'C')
-				mlx_put_image_to_window(mlx, mlx_win, img->collect, x, y);
+			all.mlx_win = mlx_win;
+			all.mlx = mlx;
+			all.img = img;
+			turn_to_screen(all, x, y, ((char *)map->content)[i]);
 			i ++;
 			x += 64;
 		}
